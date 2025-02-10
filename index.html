@@ -11,10 +11,9 @@
 <body>
   <div class="area">
     <header class="header">
-      <div class="container">
-        <button class="button">Старт</button>
-        <button class="button">Сброс</button>
-        <select name="cnt_tasks" id="cnt_tasks">
+        <button class="button text_p">Старт</button>
+        <button class="button text_p">Сброс</button>
+        <select name="cnt_tasks" id="cnt_tasks" class="button text_p">
           <option value="">Количество задач</option>
           <option value="1">5</option>
           <option value="1">6</option>
@@ -23,7 +22,6 @@
           <option value="1">9</option>
           <option value="1">10</option>
         </select>
-      </div>
     </header>
     <main class="main">
       <div class="container main_container">
@@ -74,6 +72,8 @@
           <div class="outer_block os_block">
               <h3 class="text_h3">ОС следит за выполнением I/O операций</h3>
               <div class="block sockets">
+                <h4 class="text_h4">Сокеты задач</h4>
+                <div class="inner_block sockets_block"></div>
               </div>
           </div>
         </div>
