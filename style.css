@@ -91,11 +91,38 @@ button:-moz-focusring,
     flex-direction: column;
 }
 
+.section {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
 .outer_block {
     border: 1px solid #AAB2BD;
     border-radius: 3px;
     flex: 1;
     padding: 5px;
+}
+
+.block {
+    border-radius: 3px;
+    background: rgba(213, 190, 241, 0.5);
+    padding: 5px;
+    border: 1px solid rgba(125, 82, 185, 0.66);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+.inner_block {
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.8);
+    margin-bottom: 10px;
+    padding: 0 5px;
+
 }
 
 .process {
@@ -114,24 +141,44 @@ button:-moz-focusring,
 }
 
 .main_thread {
-    width: 27%;
+    width: 33%;
+    padding-left: 5px;
 }
 
 .event_loop {
-    width: 70%;
+    width: 65%;
+    padding-right: 5px;
 }
 
 .event_loop_block {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    border: 1px solid #AAB2BD;
+    border-radius: 3px;
+    padding: 20px 10px;
 }
 
 .queue {
-
+    width: 40%;
 }
 
-.event_loop {
+.loop {
+    width: 45%;
     display: flex;
     flex-direction: column;
+}
+
+.thread_block {
+    height: 50px;
+    width: 150px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.main_thread_task {
+    width: 7px;
+    height: 30px;
 }
