@@ -9,10 +9,11 @@
     --color-hover: rgba(213, 190, 241, 0.5);
     --width-inner-block: 150px;
     --width-block: 170px;
-    --height-task: 30px;
+    --height-task: 25px;
     --font: "Roboto", 'Arial', sans-serif;
 }
 
+/*Cтили из normalize и общие для нормализации*/
 html {
     line-height: 1.15; /* 1 */
     -webkit-text-size-adjust: 100%; /* 2 */
@@ -68,6 +69,7 @@ button:-moz-focusring,
     outline: 1px dotted ButtonText;
 }
 
+/*Стили для текста и кнопок*/
 .text_p {
     font-size: 16px;
     font-weight: normal;
@@ -117,6 +119,7 @@ button:-moz-focusring,
     cursor: default;
 }
 
+/*Основной layout*/
 .area {
     display: flex;
     flex-direction: column;
@@ -161,7 +164,7 @@ button:-moz-focusring,
     height: 100%;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 7px;
 }
 
 .section {
@@ -186,7 +189,7 @@ button:-moz-focusring,
     border: 1px solid var(--color-block-border);
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 7px;
     align-items: center;
     width: var(--width-block);
 }
@@ -240,7 +243,34 @@ button:-moz-focusring,
 }
 
 .queue_block {
-    height: 500px;
+    height: 480px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+
+.queue_section {
+    padding: 0 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    border-bottom: 1px solid var(--color-block-border);
+    height: 48px;
+}
+
+.runner_section {
+    padding: 0 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    height: 100%;
+}
+
+.queue_task {
+    height: var(--height-task);
+    width: 10px;
 }
 
 .runner_block {
@@ -248,7 +278,7 @@ button:-moz-focusring,
 }
 
 .ready_block {
-    height: 200px;
+    height: 240px;
 }
 
 .os_block {
@@ -260,7 +290,7 @@ button:-moz-focusring,
 }
 
 .sockets_block {
-    height: 500px;
+    height: 480px;
 }
 
 .finished {
@@ -278,4 +308,39 @@ button:-moz-focusring,
 
 .footer .text_h3 {
     text-align: start;
+}
+
+/*Стили для цветов и иммитации задач*/
+.red {
+    background-color: #E9573F;
+}
+.blue {
+    background-color: #4A89DC;
+}
+.green {
+    background-color: #37BC9B;
+}
+.yellow {
+    background-color: #F6BB42;
+}
+.cyan {
+    background-color: #3BAFDA;
+}
+.violet {
+    background-color: #967ADC;
+}
+.pink {
+    background-color: #D770AD;
+}
+.grass {
+    background-color:  #8CC152;
+}
+.brown {
+    background-color: #DA4453;
+}
+.purple {
+    background-color: #7e45d3;
+}
+.wait {
+    background-color: dimgray;
 }
