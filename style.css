@@ -237,7 +237,7 @@ button:-moz-focusring,
     padding: 0 8px;
 }
 
-.main_thread_task {
+.thread_block > div {
     width: 8px;
     height: var(--height-task);
 }
@@ -268,7 +268,8 @@ button:-moz-focusring,
     height: 100%;
 }
 
-.queue_task {
+.queue_section > div,
+.runner_section > div {
     height: var(--height-task);
     width: 10px;
 }
