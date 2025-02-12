@@ -271,7 +271,6 @@ button:-moz-focusring,
 .queue_section > div,
 .runner_section > div {
     height: var(--height-task);
-    width: 10px;
 }
 
 .runner_block {
@@ -343,5 +342,5 @@ button:-moz-focusring,
     background-color: #7e45d3;
 }
 .wait {
-    background-color: dimgray;
+    background-color: rgba(126, 126, 126, 0.87);
 }
