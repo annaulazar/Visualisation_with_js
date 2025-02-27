@@ -2,6 +2,8 @@
 const COLORS = ['red', 'blue', 'green', 'yellow', 'cyan', 'violet', 'pink', 'grass', 'brown', 'purple'];
 const WAITCLASS = 'wait';
 const SPEED = 200;
+const FINISH_LENGTH = 766;
+const WAIT_IN_READY = 5;
 
 // Константы дом-дерева
 const START_BTN = document.querySelector('.start');
@@ -12,6 +14,10 @@ const QUEUE = document.querySelectorAll('.queue_block>.queue_section');
 const RUNNER = document.querySelectorAll('.runner_section>div');
 const SOCKETS = document.querySelectorAll('.sockets_block>.queue_section');
 const READY = document.querySelectorAll('.ready_block>.queue_section');
+const ROW1 = document.querySelector('.finished_row:first-child');
+const ROW2 = document.querySelector('.finished_row:last-child');
+
+let ROW1_LENGTH = 0;
 
 let CNT_TASKS = 10;
 CNT_SELECTOR.onchange = () => {
@@ -23,10 +29,9 @@ CNT_SELECTOR.onchange = () => {
 
 let queue = [];
 let runner = null;
-let ready = [];
+let ready = new Array(5).fill(null);;
 let sockets = new Array(10).fill(null);
 let finished = [];
-let move_ready = false;
 let intervalId;
 
 function get_random(a, b) {
@@ -39,6 +44,7 @@ class Task {
     parts_length = [0, 0, 0, 0, 0];
     current_length = [8, 0, 0, 0, 0];
     state = 0;
+    wait_in_ready = 0;
 
     constructor(cnt, color, parts) {
         this.cnt_rounds = cnt;
@@ -74,15 +80,42 @@ class Task {
 function create_tasks(cnt) {
     for (let i = 0; i < cnt; i++) {
         let cnt_rounds = get_random(1, 2);
+        // let cnt_rounds = 1;
         let parts_length;
         if (cnt_rounds === 1) {
-            parts_length = [get_random(20, 40), get_random(40, 60), get_random(20, 40), 0, 0];
+            parts_length = [get_random(10, 20), get_random(60, 120), get_random(5, 10), 0, 0];
         } else {
-            parts_length = [get_random(15, 25), get_random(25, 33), get_random(15, 25), get_random(25, 33), get_random(15, 25)];
+            parts_length = [get_random(10, 20), get_random(30, 60), get_random(8, 15), get_random(30, 60), get_random(5, 10)];
         }
         let task = new Task(cnt_rounds, i, parts_length)
         queue.push(task);
     }
+}
+
+function add_task_to_finish(task) {
+    let task_length = task.parts_length.reduce((sum, value) => sum + value);
+    let row = ROW1
+    if (ROW1_LENGTH + task_length > FINISH_LENGTH) {
+        row = ROW2;
+    } else {
+        ROW1_LENGTH += task_length;
+    }
+    let finish_task = document.createElement('div')
+    for (let i = 0; i < 5; i++) {
+        let color = COLORS[task.color];
+        if (i % 2) {
+            color = WAITCLASS;
+        }
+        let part = task.parts_length[i];
+        if (part > 0) {
+            let part_task = document.createElement('div');
+            part_task.className = color;
+            part_task.style.width = part + 'px';
+            finish_task.appendChild(part_task)
+        }
+    }
+    row.appendChild(finish_task);
+
 }
 
 function move_from_queue_to_runner() {
@@ -101,26 +134,31 @@ function move_from_runner_to_sockets() {
 
 function move_from_runner_to_finished() {
     finished.push(runner);
+    add_task_to_finish(runner);
     runner = null;
     refresh_elements(RUNNER);
 }
 
 function move_from_sockets_to_ready(task, index) {
-    ready.push(task);
+    let ready_index = ready.findIndex(el => el === null)
+    ready[ready_index] = task;
     sockets[index] = null;
-    task.draw_task(READY[ready.length - 1].children);
+    task.draw_task(READY[ready_index].children);
     refresh_elements(SOCKETS[index].children);
 }
 
 function move_from_ready_to_queue() {
-    if (move_ready && ready.length > 0) {
-        for (let i = 0; i < ready.length; i++) {
+    for (let i = 0; i < ready.length; i++) {
+        if (ready[i] && ready[i].wait_in_ready >= WAIT_IN_READY) {
             queue.push(ready[i]);
             queue[queue.length - 1].draw_task(QUEUE[queue.length - 1].children);
             refresh_elements(READY[i].children);
-
+            ready[i].wait_in_ready = 0;
+            ready[i] = null;
+        } else if (ready[i]) {
+            ready[i].wait_in_ready += 1;
         }
-        ready = [];
+
     }
 }
 
@@ -157,14 +195,12 @@ function draw_queue(first_draw=false) {
 }
 
 function draw_sockets() {
-    move_ready = true;
     for (let i = 0; i < 10; i++) {
         let task = sockets[i]
         if (task) {
             task.run_task(SOCKETS[i].children);
             if (task.check_task_for_move()) {
                 move_from_sockets_to_ready(task, i);
-                move_ready = false;
             }
         }
     }
@@ -203,8 +239,9 @@ function clear() {
     ready = [];
     sockets = new Array(10).fill(null);
     finished = [];
-    move_ready = false;
-
+    ROW1.replaceChildren();
+    ROW2.replaceChildren();
+    ROW1_LENGTH = 0;
 }
 
 function start_loop() {
