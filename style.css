@@ -295,11 +295,29 @@ button:-moz-focusring,
 
 .finished {
     width: 100%;
+    padding: 0;
 }
 
 .finished_block {
     width: 100%;
-    height: 60px;
+    height: 70px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 5px;
+}
+
+.finished_row {
+    width: 100%;
+    height: 25px;
+    display: flex;
+    gap: 5px;
+    justify-content: start;
+}
+
+.finished_row > div {
+    display: flex;
+    justify-content: start;
 }
 
 .footer .main_block {
@@ -342,5 +360,5 @@ button:-moz-focusring,
     background-color: #7e45d3;
 }
 .wait {
-    background-color: rgba(126, 126, 126, 0.87);
+    background-color: rgba(126, 126, 126, 0.73);
 }
