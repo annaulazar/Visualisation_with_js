@@ -236,7 +236,7 @@ function clear() {
     }
     queue = [];
     runner = null;
-    ready = [];
+    ready = new Array(5).fill(null);
     sockets = new Array(10).fill(null);
     finished = [];
     ROW1.replaceChildren();
